@@ -84,7 +84,7 @@ class TestRiskAnalystAgent:
         
         agent = RiskAnalystAgent(mock_client, logger, model="gpt-4")
         
-        assert agent.client == mock_client
+        assert agent.openai_client == mock_client
         assert agent.logger == logger
         assert agent.model == "gpt-4"
         assert agent.system_prompt is not None
@@ -102,14 +102,14 @@ class TestRiskAnalystAgent:
         mock_response = Mock()
         mock_response.choices = [Mock()]
         mock_response.choices[0].message.content = '''```json
-{
-    "classification": "Structuring",
-    "confidence_score": 0.85,
-    "reasoning": "Multiple transactions just under $10,000 threshold suggest structuring",
-    "key_indicators": ["threshold avoidance", "repeated amounts", "cash deposits"],
-    "risk_level": "High"
-}
-```'''
+        {
+            "classification": "Structuring",
+            "confidence_score": 0.85,
+            "reasoning": "Multiple transactions just under $10,000 threshold suggest structuring",
+            "key_indicators": ["threshold avoidance", "repeated amounts", "cash deposits"],
+            "risk_level": "High"
+        }
+        ```'''
         mock_client.chat.completions.create.return_value = mock_response
         
         # Setup logger
@@ -158,7 +158,7 @@ class TestRiskAnalystAgent:
         
         # Run analysis
         result = agent.analyze_case(case)
-        
+        print("agent.analyze_case(case) Result:", result)
         # Verify result
         assert isinstance(result, RiskAnalystOutput)
         assert result.classification == "Structuring"
@@ -430,3 +430,150 @@ That completes the analysis.'''
         # Cleanup
         if os.path.exists("test_api.jsonl"):
             os.remove("test_api.jsonl")
+    
+    @pytest.mark.skipif(not RISK_ANALYST_IMPLEMENTED, reason="Risk Analyst Agent not implemented yet")
+    def test_agent_with_sample_case(self):
+        """Test agent with realistic sample financial crime case"""
+        # Setup mock OpenAI client with comprehensive response using chain-of-thought structure
+        mock_client = Mock()
+        mock_response = Mock()
+        mock_response.choices = [Mock()]
+        mock_response.choices[0].message.content = '''```json
+        {
+            "step_1_data_review": {
+                "summary": "Identified customer profile showing low-risk business activity, but transaction patterns show significant deviation from historical baseline"
+            },
+            "step_2_pattern_recognition": {
+                "summary": "Multiple cash deposits below $10,000 threshold across different branches, inconsistent with customer profile, suggesting deliberate structuring"
+            },
+            "step_3_regulatory_mapping": {
+                "applicable_regulations": ["31 U.S.C. § 5324 - Structuring transactions to evade reporting requirements", "FinCEN guidance on suspicious activity patterns", "AML/KYC risk management standards"]
+            },
+            "step_4_risk_quantification": {
+                "risk_score": "92",
+                "likelihood_of_illicit_intent": "High - Pattern strongly suggests intentional structuring"
+            },
+            "step_5_classification": {
+                "classification": "Structuring",
+                "confidence_score": 0.92,
+                "reasoning": "Multiple cash deposits below $10k threshold, inconsistent with customer profile, increased frequency, transactions across branches suggesting deliberate distribution to evade reporting",
+                "key_indicators": ["structuring_pattern", "threshold_avoidance", "multiple_locations", "behavior_anomaly", "cash_heavy"],
+                "risk_level": "High"
+            }
+        }
+        ```'''
+        mock_client.chat.completions.create.return_value = mock_response
+        
+        # Setup logger
+        logger = ExplainabilityLogger("test_sample_case.jsonl")
+        agent = RiskAnalystAgent(mock_client, logger)
+        
+        # Create realistic sample case data - Customer with suspicious structuring activity
+        customer = CustomerData(
+            customer_id="CUST_2025001",
+            name="John Michael Patterson",
+            date_of_birth="1965-03-15",
+            ssn_last_4="5847",
+            address="4521 Oak Ridge Drive, Denver, CO 80219",
+            customer_since="2018-06-10",
+            risk_rating="Medium"
+        )
+        
+        # Multiple accounts
+        checking_account = AccountData(
+            account_id="ACC_2025001_CHK",
+            customer_id="CUST_2025001",
+            account_type="Checking",
+            opening_date="2018-06-10",
+            current_balance=3500.75,
+            average_monthly_balance=8500.00,
+            status="Active"
+        )
+        
+        savings_account = AccountData(
+            account_id="ACC_2025001_SAV",
+            customer_id="CUST_2025001",
+            account_type="Savings",
+            opening_date="2018-07-15",
+            current_balance=45000.00,
+            average_monthly_balance=40000.00,
+            status="Active"
+        )
+        
+        # Multiple transactions showing structuring pattern
+        transactions = [
+            TransactionData(
+                transaction_id="TXN_2025001_001",
+                account_id="ACC_2025001_CHK",
+                transaction_date="2025-01-08",
+                transaction_type="Cash_Deposit",
+                amount=9850.00,
+                description="Cash deposit",
+                method="Cash",
+                location="Branch_Downtown"
+            ),
+            TransactionData(
+                transaction_id="TXN_2025001_002",
+                account_id="ACC_2025001_CHK",
+                transaction_date="2025-01-09",
+                transaction_type="Cash_Deposit",
+                amount=9750.00,
+                description="Cash deposit",
+                method="Cash",
+                location="Branch_Airport"
+            ),
+            TransactionData(
+                transaction_id="TXN_2025001_003",
+                account_id="ACC_2025001_CHK",
+                transaction_date="2025-01-10",
+                transaction_type="Cash_Deposit",
+                amount=9900.00,
+                description="Cash deposit",
+                method="Cash",
+                location="Branch_Midtown"
+            ),
+            TransactionData(
+                transaction_id="TXN_2025001_004",
+                account_id="ACC_2025001_SAV",
+                transaction_date="2025-01-11",
+                transaction_type="Wire_Transfer",
+                amount=29500.00,
+                description="Wire transfer to business account",
+                method="Wire"
+            )
+        ]
+        
+        # Create comprehensive case
+        case = CaseData(
+            case_id="CASE_2025001_STRUCT",
+            customer=customer,
+            accounts=[checking_account, savings_account],
+            transactions=transactions,
+            case_created_at=datetime.now().isoformat(),
+            data_sources={
+                "customer_db": "primary",
+                "transaction_db": "primary",
+                "aml_alerts": "2_recent_alerts"
+            }
+        )
+        
+        # Run analysis
+        result = agent.analyze_case(case)
+        
+        # Verify comprehensive results
+        assert isinstance(result, RiskAnalystOutput)
+        assert result.classification == "Structuring"
+        assert result.confidence_score == 0.92
+        assert result.risk_level == "High"
+        assert len(result.key_indicators) == 5
+        assert "structuring_pattern" in result.key_indicators
+        assert "threshold_avoidance" in result.key_indicators
+        
+        # Verify reasoning includes Chain-of-Thought explanation
+        assert "Multiple cash deposits" in result.reasoning
+        assert "threshold" in result.reasoning
+        assert "inconsistent with customer profile" in result.reasoning
+        
+        # Cleanup
+        if os.path.exists("test_sample_case.jsonl"):
+            os.remove("test_sample_case.jsonl")

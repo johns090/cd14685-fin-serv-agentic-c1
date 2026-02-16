@@ -8,10 +8,13 @@ SAR processing system for financial crime detection.
 """
 
 __version__ = "1.0.0"
-__author__ = "Udacity Student"
+__author__ = "John Song"
 
 import os
 from typing import Optional
+from dotenv import load_dotenv
+
+load_dotenv("../.env")  # Load environment variables from .env file if present
 
 def create_vocareum_openai_client():
     """
@@ -32,7 +35,7 @@ def create_vocareum_openai_client():
     except ImportError:
         raise ImportError("openai package is required. Install with: pip install openai")
     
-    api_key = os.getenv('OPENAI_API_KEY')
+    api_key = os.getenv('UDACITY_OPENAI_API_KEY')
     if not api_key:
         raise ValueError(
             "OPENAI_API_KEY environment variable not found. "

@@ -1,0 +1,40 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_f5e6ee4d-5e65-4e07-a583-c32bd64e356e",
+    "filing_date": "2026-02-15T21:06:24.250699",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Patrick Williams",
+    "customer_id": "CUST_0118",
+    "address": "PSC 1449, Box 1476, APO AA 87103",
+    "customer_since": "2021-09-05",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Other",
+    "risk_level": "Medium",
+    "confidence_score": 0.8,
+    "narrative": "",
+    "key_indicators": [
+      "Significant cash deposits and ATM withdrawals on specific dates"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Patrick Williams is a midwife with a medium risk rating. He has 3 active and closed accounts with a total inflow of $222,070.26 and no outflows during the period. The average transaction amount is $2,811.02.\n\n            # Step 2 - Pattern Recognition:\n            # The customer shows a mix of transaction types with frequent online transfers and ACH transactions. However, the significant cash deposits and ATM withdrawals on specific dates raise suspicion.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 75/100\n            # Likelihood of Illicit Intent: Medium\n\n            Step 5 - Classification Decision:\n            The customer's behavior, especially the significant cash transactions, does not fit neatly into traditional categories like structuring or money laundering. Further investigation is required to determine the exact nature of the activity.\n            "
+  },
+  "regulatory_compliance": {
+    "citations": [],
+    "narrative_word_count": 0,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "3e57db2f-76de-49bb-92d0-4a5193bff459",
+    "processing_date": "2026-02-15T21:06:24.250699",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

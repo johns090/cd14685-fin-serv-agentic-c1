@@ -6,11 +6,20 @@ Streamlined test suite for foundation_sar.py module focusing on core functionali
 
 import pytest
 import os
+import sys
 from datetime import datetime
+from pathlib import Path
 
-# Import foundation components - these will work once students implement them
+# Configure Python path to find src/ module from foundation_sar.py
+# This works from any location (notebook, pytest, IDE, etc.)
+# project_root = os.path.abspath('..')
+# src_path = os.path.join(project_root, 'src')
+# tests_path = os.path.join(project_root, 'tests')
+
+
 try:
-    from src.foundation_sar import (
+    
+    from foundation_sar import (
         CustomerData,
         AccountData, 
         TransactionData,
@@ -47,6 +56,7 @@ try:
 except ImportError:
     # Graceful fallback when students haven't implemented yet
     FOUNDATION_IMPLEMENTED = False
+    print("test_foundation could not import foundation_sar components:")
 
 if not FOUNDATION_IMPLEMENTED:
     print("⚠️  Foundation components not yet implemented - tests will be skipped")
@@ -335,3 +345,85 @@ class TestExplainabilityLogger:
         # Cleanup
         if os.path.exists(log_file):
             os.remove(log_file)
+
+
+# ===== MAIN FUNCTION FOR DIRECT TESTING =====
+
+if __name__ == "__main__":
+    """Run tests directly when executed as a script"""
+    
+    print("🧪 Running test_foundation.py tests directly")
+    print("=" * 60)
+    
+    if not FOUNDATION_IMPLEMENTED:
+        print("❌ Foundation components not implemented yet!")
+        print("💡 Please implement the classes in src/foundation_sar.py first")
+        exit(1)
+    
+    try:
+        # Test CustomerData
+        print("\n👥 Testing CustomerData...")
+        test_customer = TestCustomerData()
+        test_customer.test_valid_customer_data()
+        print("   ✅ test_valid_customer_data PASSED")
+        
+        test_customer.test_customer_risk_rating_validation()
+        print("   ✅ test_customer_risk_rating_validation PASSED")
+        
+        # Test AccountData
+        print("\n🏦 Testing AccountData...")
+        test_account = TestAccountData()
+        test_account.test_valid_account_data()
+        print("   ✅ test_valid_account_data PASSED")
+        
+        test_account.test_account_balance_validation()
+        print("   ✅ test_account_balance_validation PASSED")
+        
+        # Test TransactionData
+        print("\n💳 Testing TransactionData...")
+        test_transaction = TestTransactionData()
+        test_transaction.test_valid_transaction_data()
+        print("   ✅ test_valid_transaction_data PASSED")
+        
+        test_transaction.test_transaction_amount_validation()
+        print("   ✅ test_transaction_amount_validation PASSED")
+        
+        # Test CaseData
+        print("\n📋 Testing CaseData...")
+        test_case = TestCaseData()
+        test_case.test_valid_case_creation()
+        print("   ✅ test_valid_case_creation PASSED")
+        
+        # Test DataLoader
+        print("\n📊 Testing DataLoader...")
+        test_loader = TestDataLoader()
+        test_loader.test_csv_data_loading()
+        print("   ✅ test_csv_data_loading PASSED")
+        
+        # Test ExplainabilityLogger
+        print("\n📝 Testing ExplainabilityLogger...")
+        test_logger = TestExplainabilityLogger()
+        test_logger.test_log_creation()
+        print("   ✅ test_log_creation PASSED")
+        
+        test_logger.test_log_file_writing()
+        print("   ✅ test_log_file_writing PASSED")
+        
+        # Summary
+        print("\n" + "=" * 60)
+        print("🎉 ALL TESTS PASSED!")
+        print("✅ Your foundation_sar.py implementation is complete and working.")
+        
+    except AssertionError as e:
+        print(f"\n❌ Test failed with assertion error:")
+        print(f"   {e}")
+        import traceback
+        traceback.print_exc()
+        exit(1)
+        
+    except Exception as e:
+        print(f"\n❌ Test failed with error:")
+        print(f"   {e}")
+        import traceback
+        traceback.print_exc()
+        exit(1)
