@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_d310d343-04fd-41d6-8164-fc971964a1d1",
+    "filing_date": "2026-02-17T14:56:12.305204",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Michael Stanley",
+    "customer_id": "CUST_0062",
+    "address": "230 Tiffany Mountain Suite 863, South Michael, KY 25205",
+    "customer_since": "2022-04-01",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0062, an operational investment banker, exhibits suspicious activity with significant inflows totaling $380,633.78 from 90 transactions, including multiple wire transfers and variable amounts. Despite the high-risk profile and no outflows, the activity raises concerns for potential money laundering through fund obfuscation.",
+    "key_indicators": [
+      "Significant inflows with no outflows",
+      "Multiple wire transfers",
+      "Variable transaction amounts"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Michael Stanley, an operational investment banker, has 3 accounts with significant inflows but no outflows. Transaction amounts vary with an average of $4,229.26.\n\n            # Step 2 - Pattern Recognition:\n            # The analysis reveals significant inflows, variable transaction amounts, and multiple wire transfers.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            The pattern of significant inflows, no outflows, variable transaction amounts, and multiple wire transfers aligns with a complex scheme to obscure fund origins.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0062, an operational investment banker, exhibits suspicious activity with significant inflows totaling $380,633.78 from 90 transactions, including multiple wire transfers and variable amounts. Despite the high-risk profile and no outflows, the activity raises concerns for potential money laundering through fund obfuscation.",
+    "narrative_reasoning": "The narrative includes customer identification (CUST_0062), suspicious activity description (significant inflows, multiple wire transfers, variable amounts), transaction amounts and dates, and explains why the activity is suspicious for potential money laundering.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "b9032e8a-aa28-4ca3-9e35-2b725264a184",
+    "processing_date": "2026-02-17T14:56:12.305204",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

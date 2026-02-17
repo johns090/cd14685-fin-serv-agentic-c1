@@ -1,0 +1,44 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_3bf87644-34db-4a41-ad78-41c1721165ff",
+    "filing_date": "2026-02-17T14:57:27.800312",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Cindy Clayton",
+    "customer_id": "CUST_0057",
+    "address": "08330 Robert Stravenue, Garciaberg, AL 72636",
+    "customer_since": "2020-05-26",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.75,
+    "narrative": "Customer CUST_0057, a high-risk applications developer, exhibits a pattern of regular salary deposits and bill payments. However, the unusual frequency of ATM withdrawals and cash deposits, especially towards the end of the period, raises suspicion of structuring to evade reporting thresholds. Total inflows of $286,342.62 with no outflows further highlight the suspicious activity. Transactions span from 2025-02-05 to 2025-08-02.",
+    "key_indicators": [
+      "Unusual cash transactions",
+      "No outflows despite significant inflows"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Cindy Clayton, a high-risk applications developer, has 3 active accounts with significant inflows and no outflows. Unusual ATM and cash deposit transactions observed.\n\n            # Step 2 - Pattern Recognition:\n            # Regular salary deposits and bill payments observed. Unusual pattern of ATM withdrawals and cash deposits identified.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 70/100\n            # Likelihood of Illicit Intent: Medium\n\n            Step 5 - Classification Decision:\n            The high-risk customer's unusual pattern of ATM withdrawals and cash deposits towards the end of the date range indicates potential structuring to avoid reporting thresholds.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0057, a high-risk applications developer, exhibits a pattern of regular salary deposits and bill payments. However, the unusual frequency of ATM withdrawals and cash deposits, especially towards the end of the period, raises suspicion of structuring to evade reporting thresholds. Total inflows of $286,342.62 with no outflows further highlight the suspicious activity. Transactions span from 2025-02-05 to 2025-08-02.",
+    "narrative_reasoning": "The narrative includes customer identification, suspicious activity description, transaction amounts and dates, and explains why the activity is suspicious, aligning with BSA/AML requirements.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "f7680815-a5b2-41cc-a439-fef417cae81a",
+    "processing_date": "2026-02-17T14:57:27.800312",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

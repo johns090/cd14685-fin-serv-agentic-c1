@@ -1,0 +1,44 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_c60a0de4-8e9b-48e7-be64-313da0f90662",
+    "filing_date": "2026-02-17T14:55:58.793035",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0111, Jacqueline Rodriguez, exhibits suspicious activity with a total inflow of $386,834.91 from 2025-02-05 to 2025-08-01. Transactions include multiple high-value wire transfers and large average transaction amounts, indicating potential money laundering. Regulatory threshold under 31 CFR 1020.320 (BSA) is met.",
+    "key_indicators": [
+      "Frequent wire transfers",
+      "High average transaction amount"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Jacqueline Rodriguez is a high-risk customer with 3 active accounts and a significant total inflow of $386,834.91 during the period from 2025-02-05 to 2025-08-01.\n\n            # Step 2 - Pattern Recognition:\n            # Patterns suggest potential structuring or money laundering activities based on wire transfer frequency and transaction amounts.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            The combination of frequent wire transfers involving large sums and high average transaction amounts indicates a high likelihood of money laundering activities.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0111, Jacqueline Rodriguez, exhibits suspicious activity with a total inflow of $386,834.91 from 2025-02-05 to 2025-08-01. Transactions include multiple high-value wire transfers and large average transaction amounts, indicating potential money laundering. Regulatory threshold under 31 CFR 1020.320 (BSA) is met.",
+    "narrative_reasoning": "The narrative covers customer identification (Jacqueline Rodriguez), suspicious activity description (high-value wire transfers, large transaction amounts), transaction amounts and dates, and why the activity is suspicious (potential money laundering).",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "34a154d7-e303-4b33-8ec5-29cd3f638c9c",
+    "processing_date": "2026-02-17T14:55:58.793035",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

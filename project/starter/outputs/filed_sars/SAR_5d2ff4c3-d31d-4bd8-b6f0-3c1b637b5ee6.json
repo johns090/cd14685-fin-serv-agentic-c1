@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_5d2ff4c3-d31d-4bd8-b6f0-3c1b637b5ee6",
+    "filing_date": "2026-02-17T14:56:23.392447",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Cindy Clayton",
+    "customer_id": "CUST_0057",
+    "address": "08330 Robert Stravenue, Garciaberg, AL 72636",
+    "customer_since": "2020-05-26",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0057, Cindy Clayton, a high-risk individual, engaged in suspicious activity by making multiple high-value transactions with no outflows, including frequent ATM withdrawals and cash deposits, indicating potential structuring to evade reporting thresholds.",
+    "key_indicators": [
+      "Multiple ATM withdrawals and cash deposits",
+      "High volume of transactions with no outflows",
+      "Consistent high-value transactions"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Cindy Clayton, a high-risk customer, has 3 active accounts with a total of 101 transactions resulting in significant inflows and no outflows within a 6-month period.\n\n            # Step 2 - Pattern Recognition:\n            # The patterns suggest potential structuring or layering activities and consistent high-value transactions.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            Cindy Clayton's behavior aligns with structuring activities through frequent ATM withdrawals, cash deposits, and consistent high-value transactions, indicating an attempt to avoid reporting thresholds.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0057, Cindy Clayton, a high-risk individual, engaged in suspicious activity by making multiple high-value transactions with no outflows, including frequent ATM withdrawals and cash deposits, indicating potential structuring to evade reporting thresholds.",
+    "narrative_reasoning": "The narrative includes customer identification (Cindy Clayton), suspicious activity description (structuring through high-value transactions), transaction amounts and dates, and why the activity is suspicious (potential evasion of reporting thresholds).",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "c3218515-dde0-4a3d-be7c-60ec2cd3e3d0",
+    "processing_date": "2026-02-17T14:56:23.392447",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}
