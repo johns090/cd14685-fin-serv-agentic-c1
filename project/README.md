@@ -74,12 +74,12 @@ cp .env.template .env
 From `project/starter`:
 ```bash
 # Phase-specific
-python -m pytest tests/test_foundation.py -v
-python -m pytest tests/test_risk_analyst.py -v
-python -m pytest tests/test_compliance_officer.py -v
+python -m pytest tests/test_foundation.py -v > tests/test_results/foundation_test_results.txt
+python -m pytest tests/test_risk_analyst.py -v > tests/test_results/risk_analyst_test_results.txt
+python -m pytest tests/test_compliance_officer.py -v tests/test_results/compliance_officer_test_results.txt
 
 # Full suite
-python -m pytest tests/ -v
+python -m pytest tests/ > tests/test_results/full_test_results.txt
 ```
 Notes:
 - Tests skip if a module isn’t implemented yet (expected during development).

@@ -1,0 +1,21 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.10, pytest-9.0.2, pluggy-1.6.0
+rootdir: C:\Users\john_\Documents\MyPlace\ITDevelopement\Python\Projects\udacity_fs_agentic_ai\cd14685-fin-serv-agentic-c1-classroom\project\starter
+plugins: anyio-4.12.1
+collected 31 items
+
+tests\test_compliance_officer.py ..........                              [ 32%]
+tests\test_foundation.py ..........                                      [ 64%]
+tests\test_risk_analyst.py ...........                                   [100%]
+
+============================== warnings summary ===============================
+..\..\..\..\..\..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py:1164
+  C:\Users\john_\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py:1164: PytestCollectionWarning: cannot collect 'test_client' because it is not a function.
+    def __call__(self, /, *args, **kwargs):
+
+..\..\..\..\..\..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py:1164
+  C:\Users\john_\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py:1164: PytestCollectionWarning: cannot collect 'test_logger' because it is not a function.
+    def __call__(self, /, *args, **kwargs):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 31 passed, 2 warnings in 1.41s ========================
