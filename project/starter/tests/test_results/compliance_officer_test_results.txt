@@ -1,0 +1,29 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.10, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\john_\Documents\MyPlace\ITDevelopement\Python\Environments\venv_udacity_fs_agentic_ai\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\john_\Documents\MyPlace\ITDevelopement\Python\Projects\udacity_fs_agentic_ai\cd14685-fin-serv-agentic-c1-classroom\project\starter
+plugins: anyio-4.12.1
+collecting ... collected 10 items
+
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_agent_initialization PASSED [ 10%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_generate_compliance_narrative_success PASSED [ 20%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_narrative_word_count_validation PASSED [ 30%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_json_parsing_error PASSED [ 40%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_extract_json_from_code_block PASSED [ 50%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_extract_json_from_plain_text PASSED [ 60%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_extract_json_empty_response PASSED [ 70%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_format_transactions_for_compliance PASSED [ 80%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_system_prompt_structure PASSED [ 90%]
+tests/test_compliance_officer.py::TestComplianceOfficerAgent::test_api_call_parameters PASSED [100%]
+
+============================== warnings summary ===============================
+..\..\..\..\..\..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py:1164
+  C:\Users\john_\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py:1164: PytestCollectionWarning: cannot collect 'test_client' because it is not a function.
+    def __call__(self, /, *args, **kwargs):
+
+..\..\..\..\..\..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py:1164
+  C:\Users\john_\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py:1164: PytestCollectionWarning: cannot collect 'test_logger' because it is not a function.
+    def __call__(self, /, *args, **kwargs):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 10 passed, 2 warnings in 1.11s ========================
