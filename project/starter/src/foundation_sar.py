@@ -32,6 +32,18 @@ from pydantic import BaseModel, Field, field_validator
 import uuid
 import os
 
+# Import pd.isna for NaN detection
+from pandas import isna as pd_isna
+
+# Helper function to validate yyyy-mm-dd date strings
+def validate_yyyy_mm_dd(date_str: str) -> str:
+    """Validate that a string is in 'yyyy-mm-dd' format and is a valid date."""
+    try:
+        datetime.strptime(date_str, "%Y-%m-%d")
+    except ValueError:
+        raise ValueError(f"Date '{date_str}' is not in 'YYYY-MM-DD' format or is not a valid date.")
+    return date_str
+
 
 # ===== TODO: IMPLEMENT PYDANTIC SCHEMAS =====
 
@@ -67,9 +79,35 @@ class CustomerData(BaseModel):
     occupation: Optional[str] = Field(None, description="Job title like Software Engineer")
     annual_income: Optional[int] = Field(None, description="Yearly income like 75000")
     
-
-
-
+    @field_validator('ssn_last_4', mode='before')
+    @classmethod
+    def convert_ssn_int_to_str(cls, v):
+        """Convert int to string for SSN last 4 digits"""
+        if isinstance(v, int):
+            return str(v).zfill(4)  # Pad with zeros if needed
+        return v
+    
+    @field_validator('date_of_birth', 'customer_since')
+    @classmethod
+    def validate_dates(cls, v):
+        return validate_yyyy_mm_dd(v)
+    
+    @field_validator('phone', 'occupation', mode='before')
+    @classmethod
+    def convert_nan_to_none_str(cls, v):
+        """Convert pandas NaN to None for optional string fields"""
+        if pd_isna(v):
+            return None
+        return v
+    
+    @field_validator('annual_income', mode='before')
+    @classmethod
+    def convert_nan_to_none_int(cls, v):
+        """Convert pandas NaN to None for optional numeric fields"""
+        if pd_isna(v):
+            return None
+        return v
+    
 
 class AccountData(BaseModel):
     """Account information schema with validation
@@ -94,6 +132,21 @@ class AccountData(BaseModel):
     current_balance: float = Field(..., description="Current balance (can be negative)")
     average_monthly_balance: float = Field(..., description="Average balance")
     status: str = Field(..., description="Status like Active, Closed, Suspended")
+
+    @field_validator('opening_date')
+    @classmethod
+    def validate_opening_date(cls, v):
+        return validate_yyyy_mm_dd(v)
+
+    @field_validator('current_balance')
+    @classmethod
+    def validate_current_balance(cls, v):
+        # Accept negative values, but check for extreme/unrealistic values
+        if not isinstance(v, (int, float)):
+            raise ValueError('current_balance must be a number')
+        if abs(v) > 1e9:
+            raise ValueError('current_balance is unrealistically large')
+        return v
 
 class TransactionData(BaseModel):
     """Transaction information schema with validation
@@ -123,6 +176,31 @@ class TransactionData(BaseModel):
     method: str = Field(..., description="Method like Wire, ACH, ATM, Teller")
     counterparty: Optional[str] = Field(None, description="Other party in transaction")
     location: Optional[str] = Field(None, description="Transaction location or branch")
+
+    @field_validator('transaction_date')
+    @classmethod
+    def validate_transaction_date(cls, v):
+        return validate_yyyy_mm_dd(v)
+
+    @field_validator('amount')
+    @classmethod
+    def validate_amount(cls, v):
+        # Accept negative values, but check for extreme/unrealistic values
+        if not isinstance(v, (int, float)):
+            raise ValueError('amount must be a number')
+        if abs(v) > 1e8:
+            raise ValueError('amount is unrealistically large')
+        if v == 0:
+            raise ValueError('amount cannot be zero')
+        return v
+    
+    @field_validator('counterparty', 'location', mode='before')
+    @classmethod
+    def convert_nan_to_none_optional(cls, v):
+        """Convert pandas NaN to None for optional fields"""
+        if pd_isna(v):
+            return None
+        return v
 
 class CaseData(BaseModel):
     """Unified case object combining all data sources
@@ -158,6 +236,16 @@ class CaseData(BaseModel):
     def validate_transactions_not_empty(cls, v):
         if not v:
             raise ValueError('Transactions list cannot be empty')
+        return v
+
+    @field_validator('case_created_at')
+    @classmethod
+    def validate_case_created_at(cls, v):
+        # Allow full ISO format, but if only date is provided, validate yyyy-mm-dd
+        try:
+            datetime.fromisoformat(v)
+        except ValueError:
+            return validate_yyyy_mm_dd(v)
         return v
 
 class RiskAnalystOutput(BaseModel):

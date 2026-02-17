@@ -1,0 +1,44 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_dc3bfbe8-79eb-4cb6-b980-6e2dfdd00a36",
+    "filing_date": "2026-02-17T00:40:56.424796",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer Jacqueline Rodriguez, with a high-risk profile, displayed suspicious activity through frequent wire transfers, high-value transactions, and diverse fund movements. On 2025-07-30, significant outgoing wire transfers of $8,906.70 and $12,689.70 were made to Nash, Mueller and Russell and Tran-Burns, respectively. These transactions raise concerns of potential money laundering, warranting further investigation.",
+    "key_indicators": [
+      "Frequent wire transfers",
+      "High-value transactions",
+      "Multiple outgoing wire transfers"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Jacqueline Rodriguez, a high-risk customer, has 3 accounts with diverse transaction types and significant inflows. No specific red flags identified.\n\n            # Step 2 - Pattern Recognition:\n            # The customer exhibits patterns of frequent wire transfers, high-value transactions, and diverse fund movements.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            The patterns of frequent wire transfers, high transaction volumes, and diverse fund movements align with typical money laundering schemes. The high-risk customer profile further supports this classification.\n            "
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)"
+    ],
+    "narrative_word_count": 51,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "15c3898b-1757-4b07-b26c-875532418592",
+    "processing_date": "2026-02-17T00:40:56.424796",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

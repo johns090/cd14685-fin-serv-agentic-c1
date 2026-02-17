@@ -84,7 +84,7 @@ class TestRiskAnalystAgent:
         
         agent = RiskAnalystAgent(mock_client, logger, model="gpt-4")
         
-        assert agent.openai_client == mock_client
+        assert agent.client == mock_client
         assert agent.logger == logger
         assert agent.model == "gpt-4"
         assert agent.system_prompt is not None

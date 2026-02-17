@@ -19,7 +19,7 @@ from pathlib import Path
 
 try:
     
-    from foundation_sar import (
+    from src.foundation_sar import (
         CustomerData,
         AccountData, 
         TransactionData,

@@ -1,0 +1,43 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_d8cc6efe-82b5-4248-85f8-fa6993e49d04",
+    "filing_date": "2026-02-17T00:40:12.552020",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Michael Stanley",
+    "customer_id": "CUST_0062",
+    "address": "230 Tiffany Mountain Suite 863, South Michael, KY 25205",
+    "customer_since": "2022-04-01",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0062, an operational investment banker, exhibited a pattern of high-value transactions and multiple outgoing wire transfers totaling $380,633.78 from Feb-Aug 2025, with no outflows. This aligns with structuring activities under the Bank Secrecy Act. Suspicious activity involves potential money laundering through structuring to evade regulatory thresholds.",
+    "key_indicators": [
+      "High-value transactions",
+      "Multiple outgoing wire transfers"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Michael Stanley, an operational investment banker, has 3 accounts with significant inflows and no outflows during the analyzed period.\n\n            # Step 2 - Pattern Recognition:\n            # High-value transactions from various sources and multiple outgoing wire transfers identified.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            The pattern of frequent high-value transactions and multiple outgoing wire transfers aligns with structuring activities, indicating an attempt to avoid reporting thresholds.\n            "
+  },
+  "regulatory_compliance": {
+    "citations": [
+      "31 CFR 1020.320 (BSA)"
+    ],
+    "narrative_word_count": 47,
+    "compliance_status": "approved"
+  },
+  "audit_trail": {
+    "case_id": "52787d46-f767-4024-9908-3efe7631251d",
+    "processing_date": "2026-02-17T00:40:12.552020",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

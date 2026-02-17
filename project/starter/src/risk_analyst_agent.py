@@ -44,7 +44,7 @@ class RiskAnalystAgent:
     - Logs all operations for audit
     """
     
-    def __init__(self, openai_client, explainability_logger, model="gpt-3.5-turbo"): #"gpt-4", "gpt-3.5-turbo"
+    def __init__(self, openai_client, explainability_logger, model="gpt-3.5-turbo", retry_limit: int = 2): #"gpt-4", "gpt-3.5-turbo"
         """Initialize the Risk Analyst Agent
         
         Args:
@@ -53,9 +53,10 @@ class RiskAnalystAgent:
             model: OpenAI model to use
         """
         # TODO: Initialize agent components
-        self.openai_client = openai_client
+        self.client = openai_client
         self.logger = explainability_logger
         self.model = model
+        self.retry_limit = retry_limit
         
         # Build classification categories dynamically from helper function
         classification_categories = get_classification_categories()
@@ -111,19 +112,26 @@ class RiskAnalystAgent:
         ## Classification Categories
         {categories_text}
 
+        ## Classification Guide:
+        - **Structuring**: Breaking transactions into smaller amounts to avoid reporting thresholds ($10,000+)
+        - **Sanctions**: Activity involving prohibited jurisdictions, entities, or individuals on sanctions lists
+        - **Fraud**: Identity theft, account takeover, false statements, or unauthorized transactions
+        - **Money_Laundering**: Complex schemes with multiple layers (placement, layering, integration) to obscure illicit fund origins
+        - **Other**: Suspicious patterns not fitting the above categories but still requiring investigation
+
         ## Response Format (JSON)
         Your response MUST be valid JSON with this exact structure:
         {{
             "step_1_data_review": {{
                 "key_facts": ["fact1", "fact2", ...],
                 "red_flags": ["flag1", "flag2", ...],
-                "summary": str = Field(..., max_length=250, description="Brief summary of customer and transaction details")
+                "summary": "Brief summary of customer and transaction details"
             }},
             "step_2_pattern_recognition": {{
                 "patterns_identified": [
                     {{"pattern": "description", "confidence": "High/Medium/Low", "reasoning": "why"}}
                 ],
-                "summary": str = Field(..., max_length=250, description="Analysis of transaction patterns")
+                "summary": "Analysis of transaction patterns"
             }},
             "step_3_regulatory_mapping": {{
                 "applicable_regulations": ["31 CFR 1010.320", ...],
@@ -132,19 +140,30 @@ class RiskAnalystAgent:
             }},
             "step_4_risk_quantification": {{
                 "likelihood_of_illicit_intent": "High/Medium/Low",
-                "risk_score": 0-100,
+                "risk_score": 0,
                 "financial_impact": "High/Medium/Low",
                 "justification": "Detailed explanation"
             }},
             "step_5_classification": {{
-                "classification": "Structuring|Sanctions|Fraud|Money_Laundering|Other",
-                "confidence_score": float = Field(..., ge=0.0, le=1.0, description="Confidence score between 0.0 and 1.0")
-                "reasoning": str = Field(..., max_length=300, description="Step-by-step analysis reasoning")
-                "key_indicators": List[str] = Field(..., description="List of suspicious indicators found")
-                "risk_level": Literal['Low', 'Medium', 'High', 'Critical'] = Field(..., description="Risk assessment level")
-
+                "classification": "Structuring",
+                "confidence_score": 0.85,
+                "reasoning": "Step-by-step analysis reasoning",
+                "key_indicators": ["indicator1", "indicator2"],
+                "risk_level": "High"
             }}
         }}
+
+        ## Constraints and Rules:
+        - step_1_data_review.summary: max 250 characters
+        - step_2_pattern_recognition.summary: max 250 characters
+        - step_4_risk_quantification.likelihood_of_illicit_intent: one of [High, Medium, Low]
+        - step_4_risk_quantification.risk_score: integer 0-100
+        - step_4_risk_quantification.financial_impact: one of [High, Medium, Low]
+        - step_5_classification.classification: one of [Structuring, Sanctions, Fraud, Money_Laundering, Other]
+        - step_5_classification.confidence_score: float between 0.0 and 1.0
+        - step_5_classification.reasoning: max 300 characters
+        - step_5_classification.key_indicators: list of strings (suspicious indicators)
+        - step_5_classification.risk_level: one of [Low, Medium, High, Critical]
 
         """
         
@@ -176,63 +195,76 @@ class RiskAnalystAgent:
         # Step 1: Format case data into structured prompt
         user_prompt = self._format_case_for_prompt(case_data)
         
-        # Step 2: Make OpenAI API call with Chain-of-Thought prompting
-        try:
-            api_response = self.openai_client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": self.system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                temperature=0.3,  # Lower temperature for consistency in financial analysis
-                max_tokens=1000,   # Sufficient for detailed CoT reasoning
-                # response_format={"type": "json_object"}  # Enforce JSON response
-            )
-            
-            # Extract response content
-            print("llm_response: ", api_response)
-            raw_response = api_response.choices[0].message.content
+        raw_response = None
+        last_api_error = None
+        for attempt in range(1, self.retry_limit + 1):
+            try:
+                api_response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": self.system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=0.3,  # Lower temperature for consistency in financial analysis
+                    max_tokens=1000,   # Sufficient for detailed CoT reasoning
+                    # response_format={"type": "json_object"}  # Enforce JSON response
+                )
 
-            print("Raw LLM Response: ", raw_response[:500])  # Print first 500 chars for debugging
-            
-        except Exception as api_error:
-            error_msg = f"OpenAI API call failed: {str(api_error)}"
-            execution_time_ms = (datetime.now() - analysis_start_time).total_seconds() * 1000
-            
-            self.logger.log_agent_action(
-                agent_type="RiskAnalyst",
-                action="analyze_case",
-                case_id=case_id,
-                input_data={"prompt_length": len(user_prompt)},
-                output_data={},
-                reasoning="OpenAI API call failed",
-                execution_time_ms=execution_time_ms,
-                success=False,
-                error_message=error_msg
-            )
-            raise ValueError(error_msg) from api_error
+                print("llm_response: ", api_response)
+                raw_response = api_response.choices[0].message.content
+                print("Raw LLM Response: ", raw_response[:500])  # Print first 500 chars for debugging
+                break
+
+            except Exception as api_error:
+                last_api_error = api_error
+                if attempt == self.retry_limit:
+                    error_msg = f"OpenAI API call failed after {self.retry_limit} attempts: {str(api_error)}"
+                    execution_time_ms = (datetime.now() - analysis_start_time).total_seconds() * 1000
+                    self.logger.log_agent_action(
+                        agent_type="RiskAnalyst",
+                        action="analyze_case",
+                        case_id=case_id,
+                        input_data={"prompt_length": len(user_prompt)},
+                        output_data={},
+                        reasoning="OpenAI API call failed",
+                        execution_time_ms=execution_time_ms,
+                        success=False,
+                        error_message=error_msg
+                    )
+                    raise ValueError(error_msg) from api_error
+                else:
+                    print(f"API error on attempt {attempt}/{self.retry_limit}: {api_error}. Retrying...")
+                    continue
         
-        # Step 3: Extract and validate JSON from response
-        try:
-            json_str = self._extract_json_from_response(raw_response)
-            analysis_json = json.loads(json_str)
-            
-        except ValueError as json_error:
-            error_msg = f"JSON parsing failed: {str(json_error)}"
-            execution_time_ms = (datetime.now() - analysis_start_time).total_seconds() * 1000
-            
-            self.logger.log_agent_action(
-                agent_type="RiskAnalyst",
-                action="analyze_case",
-                case_id=case_id,
-                input_data={"response_length": len(raw_response)},
-                output_data={},
-                reasoning="JSON parsing failed",
-                execution_time_ms=execution_time_ms,
-                success=False,
-                error_message=error_msg
-            )
-            raise ValueError(error_msg) from json_error
+        # Step 3: Extract and validate JSON from response (with retries)
+        analysis_json = None
+        last_json_error = None
+        for attempt in range(1, self.retry_limit + 1):
+            try:
+                json_str = self._extract_json_from_response(raw_response)
+                analysis_json = json.loads(json_str)
+                break
+            except ValueError as json_error:
+                last_json_error = json_error
+                if attempt == self.retry_limit:
+                    error_msg = f"JSON parsing failed after {self.retry_limit} attempts: {str(json_error)}"
+                    execution_time_ms = (datetime.now() - analysis_start_time).total_seconds() * 1000
+                    
+                    self.logger.log_agent_action(
+                        agent_type="RiskAnalyst",
+                        action="analyze_case",
+                        case_id=case_id,
+                        input_data={"response_length": len(raw_response) if raw_response else 0},
+                        output_data={},
+                        reasoning="JSON parsing failed",
+                        execution_time_ms=execution_time_ms,
+                        success=False,
+                        error_message=error_msg
+                    )
+                    raise ValueError(error_msg) from json_error
+                else:
+                    print(f"JSON parsing error on attempt {attempt}/{self.retry_limit}: {json_error}. Retrying...")
+                    continue
         
         # Step 4: Extract classification and confidence
         # Accept both flat JSON schema and the nested Chain-of-Thought schema
@@ -313,22 +345,6 @@ class RiskAnalystAgent:
         
         return output
         
-        # except Exception as e:
-        #     # Log unexpected errors
-        #     execution_time_ms = (datetime.now() - analysis_start_time).total_seconds() * 1000
-            
-        #     self.logger.log_agent_action(
-        #         agent_type="RiskAnalyst",
-        #         action="analyze_case",
-        #         case_id=case_id,
-        #         input_data={"case_id": case_id},
-        #         output_data={},
-        #         reasoning="Risk analysis failed with unexpected error",
-        #         execution_time_ms=execution_time_ms,
-        #         success=False,
-        #         error_message=str(e)
-        #     )
-        #     raise
 
     def _extract_json_from_response(self, response_content: str) -> str:
         """Extract JSON content from LLM response
