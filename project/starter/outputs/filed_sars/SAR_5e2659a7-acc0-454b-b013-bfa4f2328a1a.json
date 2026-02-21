@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_5e2659a7-acc0-454b-b013-bfa4f2328a1a",
+    "filing_date": "2026-02-21T15:28:01.631593",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Michael Stanley",
+    "customer_id": "CUST_0062",
+    "address": "230 Tiffany Mountain Suite 863, South Michael, KY 25205",
+    "customer_since": "2022-04-01",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0062, an operational investment banker, received $98,090.16 via wire transfer on 2025-07-27. Unidirectional fund flow and high-value transfers totaling $380,633.78 between 2025-02-03 and 2025-08-01 raise suspicion of money laundering. Activity aligns with layering and fund movement schemes, warranting a SAR filing under 31 CFR 1020.320 (BSA) and FinCEN SAR Instructions.",
+    "key_indicators": [
+      "High-value wire transfers",
+      "Unidirectional fund flow"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Michael Stanley, an operational investment banker, has 3 accounts with significant total inflows and various transaction types.\n\n            # Step 2 - Pattern Recognition:\n            # High-value wire transfers and one-way transaction flow observed.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            The consistent high-value wire transfers and one-way flow of funds align with typical money laundering schemes involving layering and fund movement.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0062, an operational investment banker, received $98,090.16 via wire transfer on 2025-07-27. Unidirectional fund flow and high-value transfers totaling $380,633.78 between 2025-02-03 and 2025-08-01 raise suspicion of money laundering. Activity aligns with layering and fund movement schemes, warranting a SAR filing under 31 CFR 1020.320 (BSA) and FinCEN SAR Instructions.",
+    "narrative_reasoning": "Identified customer, transaction amounts, dates, and described suspicious activity based on risk analysis findings. Emphasized high-value wire transfer, unidirectional flow, and money laundering indicators within the 120-word limit.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "85bd691f-b700-4d9b-928b-54634ef439ef",
+    "processing_date": "2026-02-21T15:28:01.631593",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_4140967e-7212-4622-acd2-3cce05302b6b",
+    "filing_date": "2026-02-21T15:29:50.789650",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Cindy Clayton",
+    "customer_id": "CUST_0057",
+    "address": "08330 Robert Stravenue, Garciaberg, AL 72636",
+    "customer_since": "2020-05-26",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0057, a high-risk individual, conducted 101 transactions totaling $286,342.62 between 2025-02-05 and 2025-08-02. Activities include salary deposits via wire transfers, regular bill payments, and high-value ATM withdrawals, suggesting structuring. The behavior aligns with the Bank Secrecy Act, triggering suspicion due to potential avoidance of reporting thresholds. Financial institution flagged suspicious activity based on the pattern of transactions and the customer's risk level.",
+    "key_indicators": [
+      "Frequent high-value ATM withdrawals",
+      "Pattern of structured transactions"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Cindy Clayton, a high-risk customer, holds 3 active accounts with substantial balances. Engaged in 101 transactions totaling $286,342.62, all within the specified date range.\n\n            # Step 2 - Pattern Recognition:\n            # Cindy shows patterns of salary deposits via wire transfers, regular bill payments through online transfers, and high-value ATM withdrawals on specific dates.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 75/100\n            # Likelihood of Illicit Intent: Medium\n\n            Step 5 - Classification Decision:\n            The classification as structuring is supported by the frequent high-value ATM withdrawals, potentially indicating an attempt to avoid reporting thresholds. The customer's high-risk rating adds to the suspicion.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0057, a high-risk individual, conducted 101 transactions totaling $286,342.62 between 2025-02-05 and 2025-08-02. Activities include salary deposits via wire transfers, regular bill payments, and high-value ATM withdrawals, suggesting structuring. The behavior aligns with the Bank Secrecy Act, triggering suspicion due to potential avoidance of reporting thresholds. Financial institution flagged suspicious activity based on the pattern of transactions and the customer's risk level.",
+    "narrative_reasoning": "Structured to cover customer ID, dates, amounts, activity description, and rationale for why the behavior is suspicious while respecting the \u2264120-word constraint.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "b0268952-35e2-4e6a-9505-d73924405452",
+    "processing_date": "2026-02-21T15:29:50.789650",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

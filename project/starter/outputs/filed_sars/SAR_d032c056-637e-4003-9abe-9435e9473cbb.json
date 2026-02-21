@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_d032c056-637e-4003-9abe-9435e9473cbb",
+    "filing_date": "2026-02-21T15:29:19.513571",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0111, Jacqueline Rodriguez, a high-risk client, conducted multiple wire transfers and online transfers totaling $386,834.91 from 2025-02-05 to 2025-08-01. The high frequency of wire transfers exceeding $10,000 raises suspicion of structuring to evade reporting requirements. Financial institution flagged suspicious activity due to the pattern of large transactions inconsistent with stated income. SAR drafting initiated under the Bank Secrecy Act based on the identified risk indicators and regulatory threshold breaches.",
+    "key_indicators": [
+      "Frequent wire transfers above $10,000",
+      "Consistent pattern of large online transfers"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Jacqueline Rodriguez is a high-risk customer with 3 active accounts and a significant total inflow of $386,834.91 over 121 transactions within a 6-month period.\n\n            # Step 2 - Pattern Recognition:\n            # The customer shows patterns of frequent wire transfers, high-value online transfers, and check deposits for specific payments.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 70/100\n            # Likelihood of Illicit Intent: Medium\n\n            Step 5 - Classification Decision:\n            The high frequency of wire transfers exceeding $10,000 suggests a deliberate attempt to avoid reporting requirements, indicating a high likelihood of structuring.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0111, Jacqueline Rodriguez, a high-risk client, conducted multiple wire transfers and online transfers totaling $386,834.91 from 2025-02-05 to 2025-08-01. The high frequency of wire transfers exceeding $10,000 raises suspicion of structuring to evade reporting requirements. Financial institution flagged suspicious activity due to the pattern of large transactions inconsistent with stated income. SAR drafting initiated under the Bank Secrecy Act based on the identified risk indicators and regulatory threshold breaches.",
+    "narrative_reasoning": "Structured to cover customer ID, dates, amounts, activity description, and rationale for why the behavior is suspicious while respecting the \u2264120-word constraint.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "5199d7b0-1cec-4ef7-98ae-36ccb0508fe2",
+    "processing_date": "2026-02-21T15:29:19.513571",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

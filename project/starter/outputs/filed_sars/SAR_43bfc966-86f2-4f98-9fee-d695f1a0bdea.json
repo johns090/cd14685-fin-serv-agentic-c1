@@ -1,0 +1,44 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_43bfc966-86f2-4f98-9fee-d695f1a0bdea",
+    "filing_date": "2026-02-21T15:29:05.756791",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Patrick Williams",
+    "customer_id": "CUST_0118",
+    "address": "PSC 1449, Box 1476, APO AA 87103",
+    "customer_since": "2021-09-05",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer Patrick Williams (CUST_0118), a midwife with $222,070.26 total inflows but no outflows, conducted numerous high-value ACH transactions and exhibited unusual ATM behavior from Feb-Aug 2025. Activity suggests structuring to evade reporting requirements, aligning with a high-risk classification for potential money laundering. Financial institution flagged suspicious activity based on the pattern of multiple ATM withdrawals and same-day cash deposits. SAR drafting initiated per 31 CFR 1010.320 due to strong suspicions of illicit intent.",
+    "key_indicators": [
+      "Multiple ATM withdrawals and cash deposits on the same day",
+      "Consistent high-value ACH transactions"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Patrick Williams, a midwife with medium risk rating, has 3 accounts with significant inflows but no outflows. Transaction range from Feb 2025 to Aug 2025.\n\n            # Step 2 - Pattern Recognition:\n            # Consistent high-value ACH transactions and unusual ATM transaction behavior detected.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: 31 CFR 1010.320\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 75/100\n            # Likelihood of Illicit Intent: Medium\n\n            Step 5 - Classification Decision:\n            The pattern of multiple ATM withdrawals and cash deposits on the same day raises strong suspicions of structuring to avoid reporting requirements. High financial impact and medium likelihood of illicit intent support this classification.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer Patrick Williams (CUST_0118), a midwife with $222,070.26 total inflows but no outflows, conducted numerous high-value ACH transactions and exhibited unusual ATM behavior from Feb-Aug 2025. Activity suggests structuring to evade reporting requirements, aligning with a high-risk classification for potential money laundering. Financial institution flagged suspicious activity based on the pattern of multiple ATM withdrawals and same-day cash deposits. SAR drafting initiated per 31 CFR 1010.320 due to strong suspicions of illicit intent.",
+    "narrative_reasoning": "The narrative covers customer ID, dates, amounts, suspicious activity description, and rationale for suspicion within the 120-word limit.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "2883a6dc-f1df-46d8-9996-78c890a29ea0",
+    "processing_date": "2026-02-21T15:29:05.756791",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

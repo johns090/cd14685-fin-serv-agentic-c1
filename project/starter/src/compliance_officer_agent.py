@@ -88,17 +88,17 @@ class ComplianceOfficerAgent:
             Repeat OBSERVATION → THOUGHT → ACTION for 3-4 cycles, then produce FINAL_ANSWER.
 
             Constraints for the FINAL_ANSWER:
-            - Narrative must include: customer identification, suspicious activity description, transaction amounts and dates, why activity is suspicious.
+            - Narrative must include: customer identification, suspicious activity description, transaction amounts and dates or date ranges, why activity is suspicious.
             - Use regulatory terminology: "Suspicious activity", "Regulatory threshold", "Financial institution", "Money laundering", "Bank Secrecy Act".
             - Cite at least one of: "31 CFR 1020.320 (BSA)", "12 CFR 21.11 (SAR Filing)", "FinCEN SAR Instructions".
             - Enforce word_limit = 120 words for narrative.
 
-            Required JSON response (exact keys, no additional keys):
+            Required JSON response (exact keys, no additional keys). Example of a fully valid output:
             {
-            "narrative": "<≤120-word SAR narrative>",
-            "narrative_reasoning": "<short justification of structure and included elements>",
-            "regulatory_citations": ["<citation strings>"],
-            "completeness_check": true
+                "narrative": "Customer C12345, a retail client, executed $125,000 in cash deposits and three $40,000 international wires between 2026-01-10 and 2026-01-18. Activity exceeds the regulatory threshold and is inconsistent with stated income, indicating potential money laundering. Financial institution flagged suspicious activity due to rapid layering pattern and use of multiple beneficiary banks. Bank Secrecy Act monitoring triggered SAR drafting within 120-word limit.",
+                "narrative_reasoning": "Structured to cover customer ID, dates, amounts, activity description, and rationale for why the behavior is suspicious while respecting the ≤120-word constraint.",
+                "regulatory_citations": ["31 CFR 1020.320 (BSA)", "FinCEN SAR Instructions"],
+                "completeness_check": true
             }
 
             Validation checklist before emitting JSON:
@@ -131,92 +131,109 @@ class ComplianceOfficerAgent:
         risk_prompt = self._format_risk_analysis_for_prompt(risk_analysis)
         user_prompt = f"Case Data: {case_data}\nRisk Analysis: {risk_prompt}"
 
-        # Record start time and make OpenAI API call with constraints
-        start_time = datetime.now()
-        try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": self.system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                temperature=0.2,  # Lower temperature for compliance 
-                max_tokens=800,
-                response_format={"type": "json_object"}  # Enforce JSON response
-            )
-            print("Compliance Response:", response)  # Debugging output
+        max_attempts = 2
+        last_error = None
 
-            # Parse and validate JSON response
-            response_content = response.choices[0].message.content
-            print("response content: ", response_content)  # Debugging output
-            raw_json = self._extract_json_from_response(response_content)
+        for attempt in range(1, max_attempts + 1):
+            # Record start time and make OpenAI API call with constraints
+            start_time = datetime.now()
             try:
-                json_response = json.loads(raw_json)
-            except json.JSONDecodeError as e:
-                raise ValueError(f"Failed to parse Compliance Officer JSON output: {e}")
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": self.system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=0.2,  # Lower temperature for compliance 
+                    max_tokens=800,
+                    response_format={"type": "json_object"}  # Enforce JSON response
+                )
+                print("Compliance Response:", response)  # Debugging output
 
-            print("extract json from response content: ", json_response)  # Debugging output
+                # Parse and validate JSON response
+                response_content = response.choices[0].message.content
+                print("response content: ", response_content)  # Debugging output
+                raw_json = self._extract_json_from_response(response_content)
+                try:
+                    json_response = json.loads(raw_json)
+                except json.JSONDecodeError as e:
+                    raise ValueError(f"Failed to parse Compliance Officer JSON output: {e}")
 
-            # Validate presence and basic types for all required fields
-            required_fields = ["narrative", "narrative_reasoning", "regulatory_citations", "completeness_check"]
-            missing_fields = [k for k in required_fields if k not in json_response]
-            if missing_fields:
-                raise ValueError(f"Missing required fields in Compliance Officer JSON output: {missing_fields}")
+                print("extract json from response content: ", json_response)  # Debugging output
 
-            narrative = json_response.get('narrative', '')
-            narrative_reasoning = json_response.get('narrative_reasoning', '')
-            regulatory_citations = json_response.get('regulatory_citations', [])
-            completeness_check = json_response.get('completeness_check', None)
+                # Validate presence and basic types for all required fields
+                required_fields = ["narrative", "narrative_reasoning", "regulatory_citations", "completeness_check"]
+                missing_fields = [k for k in required_fields if k not in json_response]
+                if missing_fields:
+                    raise ValueError(f"Missing required fields in Compliance Officer JSON output: {missing_fields}")
 
-            if not isinstance(narrative, str) or not narrative.strip():
-                raise ValueError("Narrative must be a non-empty string")
-            if not isinstance(narrative_reasoning, str) or not narrative_reasoning.strip():
-                raise ValueError("Narrative reasoning must be a non-empty string")
-            if not isinstance(regulatory_citations, list) or len(regulatory_citations) == 0:
-                raise ValueError("Regulatory citations must be a non-empty list")
-            if not all(isinstance(citation, str) and citation.strip() for citation in regulatory_citations):
-                raise ValueError("Each regulatory citation must be a non-empty string")
-            if not isinstance(completeness_check, bool):
-                raise ValueError("Completeness check must be a boolean")
+                narrative = json_response.get('narrative', '')
+                narrative_reasoning = json_response.get('narrative_reasoning', '')
+                regulatory_citations = json_response.get('regulatory_citations', [])
+                completeness_check = json_response.get('completeness_check', None)
 
-            narrative_word_count = len(narrative.split())
-            if narrative_word_count > 120:
-                raise ValueError(f"Narrative exceeds 120 word limit (got {narrative_word_count})")
+                if not isinstance(narrative, str) or not narrative.strip():
+                    raise ValueError("Narrative must be a non-empty string")
+                if not isinstance(narrative_reasoning, str) or not narrative_reasoning.strip():
+                    raise ValueError("Narrative reasoning must be a non-empty string")
+                if not isinstance(regulatory_citations, list) or len(regulatory_citations) == 0:
+                    raise ValueError("Regulatory citations must be a non-empty list")
+                if not all(isinstance(citation, str) and citation.strip() for citation in regulatory_citations):
+                    raise ValueError("Each regulatory citation must be a non-empty string")
+                if not isinstance(completeness_check, bool):
+                    raise ValueError("Completeness check must be a boolean")
 
-            # Log operations for audit (success)
-            execution_time_ms = (datetime.now() - start_time).total_seconds() * 1000
-            self.logger.log_agent_action(
-                agent_type="ComplianceOfficer",
-                action="generate_compliance_narrative",
-                case_id = case_data.case_id if hasattr(case_data, 'case_id') else "UNKNOWN",
-                input_data={"risk_analysis_summary": str(risk_analysis)[:200]},
-                output_data={"narrative_length": len(narrative.split())},
-                reasoning="Generated SAR narrative based on risk analysis",
-                execution_time_ms=execution_time_ms,
-                success=True
-            )
+                narrative_word_count = len(narrative.split())
+                if narrative_word_count > 120:
+                    raise ValueError(f"Narrative exceeds 120 word limit (got {narrative_word_count})")
 
-            return ComplianceOfficerOutput(
-                narrative=narrative,
-                narrative_reasoning=narrative_reasoning,
-                regulatory_citations=regulatory_citations,
-                completeness_check=completeness_check
-            )
+                generated_narrative = ComplianceOfficerOutput(
+                    narrative=narrative,
+                    narrative_reasoning=narrative_reasoning,
+                    regulatory_citations=regulatory_citations,
+                    completeness_check=completeness_check
+                )
 
-        except Exception as e:
-            # Log failure for audit
-            execution_time_ms = (datetime.now() - start_time).total_seconds() * 1000
-            self.logger.log_agent_action(
-                agent_type="ComplianceOfficer",
-                action="generate_compliance_narrative",
-                case_id = case_data.case_id if hasattr(case_data, 'case_id') else "UNKNOWN",
-                input_data={"risk_analysis_summary": str(risk_analysis)[:200]},
-                output_data={},
-                reasoning=f"JSON parsing failed: {e}",
-                execution_time_ms=execution_time_ms,
-                success=False
-            )
-            raise
+                # Validate compliance using the validator; retry if non-compliant
+                validation_result = self._validate_narrative_compliance(generated_narrative.narrative)
+                if not validation_result.get("completeness_status", False):
+                    last_error = ValueError(f"Compliance validation failed (attempt {attempt}): {validation_result}")
+                    continue
+
+                # Log operations for audit (success)
+                execution_time_ms = (datetime.now() - start_time).total_seconds() * 1000
+                self.logger.log_agent_action(
+                    agent_type="ComplianceOfficer",
+                    action="generate_compliance_narrative",
+                    case_id = case_data.case_id if hasattr(case_data, 'case_id') else "UNKNOWN",
+                    input_data={"risk_analysis_summary": str(risk_analysis)[:200]},
+                    output_data={"narrative_length": len(narrative.split())},
+                    reasoning="Generated SAR narrative based on risk analysis",
+                    execution_time_ms=execution_time_ms,
+                    success=True
+                )
+
+                return generated_narrative
+            
+            except Exception as e:
+                last_error = e
+                # Log failure for audit
+                execution_time_ms = (datetime.now() - start_time).total_seconds() * 1000
+                self.logger.log_agent_action(
+                    agent_type="ComplianceOfficer",
+                    action="generate_compliance_narrative",
+                    case_id = case_data.case_id if hasattr(case_data, 'case_id') else "UNKNOWN",
+                    input_data={"risk_analysis_summary": str(risk_analysis)[:200]},
+                    output_data={},
+                    reasoning=f"JSON parsing failed: {e}",
+                    execution_time_ms=execution_time_ms,
+                    success=False
+                )
+                if attempt >= max_attempts:
+                    raise
+
+        # If all attempts failed compliance validation, surface the last error
+        raise last_error or ValueError("Compliance validation failed after retries")
 
     def _extract_json_from_response(self, response_content: str) -> str:
         """
@@ -315,28 +332,60 @@ class ComplianceOfficerAgent:
 
         return "\n".join(formatted_entries)
 
-    def _validate_narrative_compliance(self, narrative: str) -> Dict[str, Any]:
-        """Validate narrative meets regulatory requirements
-        - Word count (≤120 words)
-        - Required elements present
-        - Appropriate terminology
-        - Regulatory completeness
-        """
-        requirements = get_regulatory_requirements()
-        result = {
-            "word_count_valid": validate_word_count(narrative, requirements["word_limit"]),
-            "required_elements_present": all(
-                elem.lower() in narrative.lower() for elem in requirements["required_elements"]
-            ),
-            "terminology_used": any(
-                term.lower() in narrative.lower() for term in requirements["terminology"]
-            ),
-            "citations_present": any(
-                citation.split()[0] in narrative for citation in requirements["citations"]
-            ),
+    def _validate_narrative_compliance(self, compliance_output: ComplianceOfficerOutput) -> Dict[str, Any]:
+        """Validate narrative meets regulatory requirements using LLM JSON validator."""
+        # Guard clause for empty input
+        if not compliance_output or (isinstance(compliance_output, str) and not compliance_output.strip()):
+            raise ValueError("Narrative is empty; cannot validate compliance")
+
+        # Construct validation prompt with explicit schema expectations (escape braces for f-string)
+        validation_prompt = (
+            """
+        You are a strict compliance validator. Review the SAR narrative below and return ONLY JSON.
+
+        compliance_output format is a JSON object with exactly these keys:
+        {
+          "narrative": string (the original narrative),
+          "narrative_reasoning": string (<=500 chars explaining how it meets requirements),
+          "regulatory_citations": array of strings (must include at least one allowed citation),
+          "completeness_check": boolean (true only if all requirements are satisfied)
         }
-        result["compliant"] = all(result.values())
-        return result
+
+        Narrative to validate:
+        """"{compliance_output}""""
+
+        Validation requirements:
+        1. Narrative must include customer identification, suspicious activity description, transaction amounts and dates or date ranges, and why the activity is suspicious.
+        2. Narrative word count must be < 120 words.
+        3. Allowable terminology (should be present when relevant): "Suspicious activity", "Regulatory threshold", "Financial institution", "Money laundering", "Bank Secrecy Act".
+        4. regulatory_citations must include at least one of: "31 CFR 1020.320 (BSA)", "12 CFR 21.11 (SAR Filing)", "FinCEN SAR Instructions".
+
+        Return a JSON object with the following structure:
+        {{
+            "words_limit_check": boolean (true if narrative is ≤120 words),
+            "required_elements_check": boolean (true if all required elements are present),
+            "terminology_check": boolean (true if appropriate terminology is used),
+            "citations_check": boolean (true if at least one required citation is included),
+            "completeness_status": boolean (true if all above checks are true)
+        }}
+        """
+        )
+
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": "You are a compliance validation engine that only returns JSON objects."},
+                {"role": "user", "content": validation_prompt}
+            ],
+            temperature=0,
+            max_tokens=400,
+            response_format={"type": "json_object"}
+        )
+
+        raw_content = response.choices[0].message.content
+        validation_json = json.loads(self._extract_json_from_response(raw_content))
+
+        return validation_json
 
 # ===== REACT PROMPTING HELPERS =====
 
@@ -440,8 +489,6 @@ def test_narrative_generation():
     print("Risk Analysis Prompt:\n", risk_prompt)
     output = agent.generate_compliance_narrative(sample_case_data, sample_risk_analysis)
     print("Generated Narrative:\n", output.narrative)
-    compliance = agent._validate_narrative_compliance(output.narrative)
-    print("Compliance Validation:\n", compliance)
 
 def validate_word_count(text: str, max_words: int = 120) -> bool:
     """Helper to validate word count
