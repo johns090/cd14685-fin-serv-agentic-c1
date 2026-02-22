@@ -16,4 +16,4 @@ tests/test_foundation.py::TestDataLoader::test_csv_data_loading PASSED   [ 80%]
 tests/test_foundation.py::TestExplainabilityLogger::test_log_creation PASSED [ 90%]
 tests/test_foundation.py::TestExplainabilityLogger::test_log_file_writing PASSED [100%]
 
-============================= 10 passed in 0.94s ==============================
+============================= 10 passed in 0.59s ==============================

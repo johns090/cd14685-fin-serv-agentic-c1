@@ -17,4 +17,4 @@ tests/test_risk_analyst.py::TestRiskAnalystAgent::test_system_prompt_structure P
 tests/test_risk_analyst.py::TestRiskAnalystAgent::test_api_call_parameters PASSED [ 90%]
 tests/test_risk_analyst.py::TestRiskAnalystAgent::test_agent_with_sample_case PASSED [100%]
 
-============================= 11 passed in 1.38s ==============================
+============================= 11 passed in 1.32s ==============================

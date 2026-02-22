@@ -1,0 +1,46 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_378d320c-08a5-4541-a05a-c743dec681b6",
+    "filing_date": "2026-02-22T10:31:48.498539",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Cindy Clayton",
+    "customer_id": "CUST_0057",
+    "address": "08330 Robert Stravenue, Garciaberg, AL 72636",
+    "customer_since": "2020-05-26",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer Cindy Clayton (CUST_0057) conducted multiple ATM withdrawals, cash deposits, and high-value wire transfers labeled as salary deposits totaling $286,342.62 from 2025-02-05 to 2025-08-02. The activity, with no visible outflows despite significant inflows, aligns with structuring to evade reporting thresholds. Financial institution flagged suspicious activity due to the rapid pattern of transactions. SAR drafting initiated under the Bank Secrecy Act to report potential money laundering.",
+    "key_indicators": [
+      "Frequent ATM withdrawals",
+      "High-value wire transfers labeled as salary deposits",
+      "No visible outflows despite significant inflows"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Cindy Clayton, a high-risk customer, has 3 active accounts with a total of 101 transactions showing significant inflows but no outflows.\n\n            # Step 2 - Pattern Recognition:\n            # The patterns identified include frequent ATM withdrawals, cash deposits, and high-value wire transfers labeled as salary deposits.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: BSA, AML, CFT\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            Cindy Clayton's behavior aligns with structuring activities through frequent ATM withdrawals, cash deposits, and high-value wire transfers labeled as salary deposits, indicating an attempt to avoid reporting thresholds.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer Cindy Clayton (CUST_0057) conducted multiple ATM withdrawals, cash deposits, and high-value wire transfers labeled as salary deposits totaling $286,342.62 from 2025-02-05 to 2025-08-02. The activity, with no visible outflows despite significant inflows, aligns with structuring to evade reporting thresholds. Financial institution flagged suspicious activity due to the rapid pattern of transactions. SAR drafting initiated under the Bank Secrecy Act to report potential money laundering.",
+    "narrative_reasoning": "Structured to cover customer ID, dates, amounts, activity description, and rationale for suspicious behavior within the 120-word limit.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "150b98b4-2295-4faa-80e0-51a853d0a592",
+    "processing_date": "2026-02-22T10:31:48.498539",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

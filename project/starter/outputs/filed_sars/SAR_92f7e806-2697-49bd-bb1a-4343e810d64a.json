@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_92f7e806-2697-49bd-bb1a-4343e810d64a",
+    "filing_date": "2026-02-22T10:31:59.204419",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Tracy Lewis",
+    "customer_id": "CUST_0053",
+    "address": "8016 Nicole Stream Suite 650, Williamsside, ID 48017",
+    "customer_since": "2024-05-11",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer Tracy Lewis (CUST_0053), a mental health nurse, made multiple high-value cash deposits totaling $57,971.04 at the end of July 2025, with no outflows. Behavior suggests structuring to evade reporting thresholds, indicating potential money laundering. Unusual transaction pattern flagged by the financial institution triggers a SAR filing under the Bank Secrecy Act. Activity aligns with BSA/AML regulations and FinCEN SAR Instructions.",
+    "key_indicators": [
+      "Frequent large cash deposits",
+      "Abrupt change in transaction behavior"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Tracy Lewis, a mental health nurse, has 3 active accounts with a total of 94 transactions. Unusual spike in cash deposits at the end of July with no outflows.\n\n            # Step 2 - Pattern Recognition:\n            # Unusual pattern of high-value cash deposits and abrupt change in transaction behavior\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: BSA/AML Regulations, Currency Transaction Reporting (CTR)\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            Tracy Lewis' behavior aligns with structuring activities through frequent large cash deposits to avoid reporting thresholds. The sudden change in transaction behavior raises suspicion.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer Tracy Lewis (CUST_0053), a mental health nurse, made multiple high-value cash deposits totaling $57,971.04 at the end of July 2025, with no outflows. Behavior suggests structuring to evade reporting thresholds, indicating potential money laundering. Unusual transaction pattern flagged by the financial institution triggers a SAR filing under the Bank Secrecy Act. Activity aligns with BSA/AML regulations and FinCEN SAR Instructions.",
+    "narrative_reasoning": "Tracy Lewis identified with customer details, cash deposit amounts and dates, suspicious structuring behavior, and regulatory compliance reasons within the 120-word limit.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "c09ea796-1512-418f-92b2-94349425b743",
+    "processing_date": "2026-02-22T10:31:59.204419",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

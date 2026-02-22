@@ -1,0 +1,46 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_7217c691-2cf7-4e8f-828f-84ab4a165376",
+    "filing_date": "2026-02-22T10:32:38.917998",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Michael Stanley",
+    "customer_id": "CUST_0062",
+    "address": "230 Tiffany Mountain Suite 863, South Michael, KY 25205",
+    "customer_since": "2022-04-01",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0062, an operational investment banker, received $380,633.78 in total inflows with no outflows across 90 transactions from 2025-02-03 to 2025-08-01. Notable activity includes multiple large wire transfers and frequent transactions, indicating potential money laundering. Financial institution flagged suspicious activity due to discrepancies in transaction patterns and high-risk indicators. Bank Secrecy Act monitoring triggered SAR drafting within 120-word limit.",
+    "key_indicators": [
+      "High volume of transactions",
+      "Multiple large wire transfers",
+      "Discrepancy between inflows and outflows"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Michael Stanley, an operational investment banker, has 3 active accounts with a high volume of transactions, notably $380,633.78 in total inflows but no outflows. Multiple wire transfers and frequent transactions observed.\n\n            # Step 2 - Pattern Recognition:\n            # Unusual patterns include high inflows with no outflows, multiple large wire transfers, and frequent transaction activity.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: BSA/AML Regulations, FinCEN Guidelines\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            The patterns of high inflows, no outflows, large wire transfers, and rapid transactions align with typical money laundering schemes involving fund placement, layering, and integration.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0062, an operational investment banker, received $380,633.78 in total inflows with no outflows across 90 transactions from 2025-02-03 to 2025-08-01. Notable activity includes multiple large wire transfers and frequent transactions, indicating potential money laundering. Financial institution flagged suspicious activity due to discrepancies in transaction patterns and high-risk indicators. Bank Secrecy Act monitoring triggered SAR drafting within 120-word limit.",
+    "narrative_reasoning": "Structured to cover customer ID, dates, amounts, activity description, and rationale for why the behavior is suspicious while respecting the \u2264120-word constraint.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "d6e46fca-a840-490e-8fde-c8a5bd2444ad",
+    "processing_date": "2026-02-22T10:32:38.917998",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

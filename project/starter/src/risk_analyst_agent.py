@@ -89,7 +89,7 @@ class RiskAnalystAgent:
         - **Output**: List of identified patterns with confidence levels
 
         ### STEP 3: REGULATORY MAPPING
-        - Map identified patterns to regulatory red flags (31 CFR 1010.320)
+        - Map identified patterns to regulatory red flags
         - Consider jurisdictional compliance requirements
         - Identify applicable BSA/AML filing thresholds and triggers
         - Cross-reference with sanctions list indicators
@@ -134,7 +134,7 @@ class RiskAnalystAgent:
                 "summary": "Analysis of transaction patterns"
             }},
             "step_3_regulatory_mapping": {{
-                "applicable_regulations": ["31 CFR 1010.320", ...],
+                "applicable_regulations": ["regulation1", ...],
                 "compliance_requirements": ["requirement1", ...],
                 "filing_triggers": ["trigger1", ...]
             }},

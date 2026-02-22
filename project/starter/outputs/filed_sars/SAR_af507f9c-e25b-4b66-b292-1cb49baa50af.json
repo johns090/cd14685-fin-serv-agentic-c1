@@ -1,0 +1,46 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_af507f9c-e25b-4b66-b292-1cb49baa50af",
+    "filing_date": "2026-02-22T10:32:50.780054",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Cindy Clayton",
+    "customer_id": "CUST_0057",
+    "address": "08330 Robert Stravenue, Garciaberg, AL 72636",
+    "customer_since": "2020-05-26",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Structuring",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer Cindy Clayton (CUST_0057), a high-risk applications developer, displayed suspicious activity with $286,342.62 in total inflows but no outflows between 2025-02-05 and 2025-08-02. Unusually high average monthly balance compared to income raises money laundering concerns. Multiple high-value transfers and frequent ATM withdrawals near thresholds suggest structuring. Financial institution flagged activity aligning with BSA and AML regulations, prompting SAR drafting.",
+    "key_indicators": [
+      "High-value wire transfers",
+      "Multiple ATM withdrawals near thresholds",
+      "Unusual balance behavior"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Cindy Clayton, a high-risk applications developer, has 3 active accounts with substantial inflows but no outflows. Unusual high average monthly balance relative to income.\n\n            # Step 2 - Pattern Recognition:\n            # Consistent high-value transfers, multiple ATM withdrawals near thresholds indicate potential structuring.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: BSA, AML\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 85/100\n            # Likelihood of Illicit Intent: High\n\n            Step 5 - Classification Decision:\n            Cindy's behavior aligns with structuring through repeated transactions near reporting thresholds and high-value transfers.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer Cindy Clayton (CUST_0057), a high-risk applications developer, displayed suspicious activity with $286,342.62 in total inflows but no outflows between 2025-02-05 and 2025-08-02. Unusually high average monthly balance compared to income raises money laundering concerns. Multiple high-value transfers and frequent ATM withdrawals near thresholds suggest structuring. Financial institution flagged activity aligning with BSA and AML regulations, prompting SAR drafting.",
+    "narrative_reasoning": "Identified customer, dates, amounts, suspicious behavior, and regulatory alignment within the \u2264120-word limit.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "c0743f3c-8d24-4115-ab54-afe7ffdf00f9",
+    "processing_date": "2026-02-22T10:32:50.780054",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

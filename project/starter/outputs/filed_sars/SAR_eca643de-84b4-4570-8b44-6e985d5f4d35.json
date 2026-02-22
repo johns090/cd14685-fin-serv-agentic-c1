@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_eca643de-84b4-4570-8b44-6e985d5f4d35",
+    "filing_date": "2026-02-22T10:31:19.676223",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Other",
+    "risk_level": "High",
+    "confidence_score": 0.75,
+    "narrative": "Customer CUST_0111, Jacqueline Rodriguez, a high-risk client, conducted $386,834.91 in total inflows over 121 transactions, including frequent wire transfers and high-value transactions between 2025-02-05 and 2025-08-01. Activity triggers suspicion due to patterns of significant transaction volume and purpose specificity, indicating potential money laundering. Financial institution identified suspicious activity based on red flags of high-risk behavior. Bank Secrecy Act monitoring necessitated SAR drafting within 120-word limit.",
+    "key_indicators": [
+      "Frequent wire transfers",
+      "High-value transactions"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Jacqueline Rodriguez, a high-risk customer, has 3 accounts with significant transaction activity and total inflows of $386,834.91 over 121 transactions.\n\n            # Step 2 - Pattern Recognition:\n            # Patterns of frequent wire transfers and high-value transactions for specific purposes identified.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: BSA, AML, FinCEN\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 70/100\n            # Likelihood of Illicit Intent: Medium\n\n            Step 5 - Classification Decision:\n            While the activity shows potential red flags, the lack of definitive evidence categorizes this case as 'Other' requiring further investigation.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0111, Jacqueline Rodriguez, a high-risk client, conducted $386,834.91 in total inflows over 121 transactions, including frequent wire transfers and high-value transactions between 2025-02-05 and 2025-08-01. Activity triggers suspicion due to patterns of significant transaction volume and purpose specificity, indicating potential money laundering. Financial institution identified suspicious activity based on red flags of high-risk behavior. Bank Secrecy Act monitoring necessitated SAR drafting within 120-word limit.",
+    "narrative_reasoning": "Structured to cover customer ID, dates, amounts, activity description, and rationale for why the behavior is suspicious while respecting the \u2264120-word constraint.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "3ddf2682-cf5b-4229-8866-0308a57bffe4",
+    "processing_date": "2026-02-22T10:31:19.676223",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

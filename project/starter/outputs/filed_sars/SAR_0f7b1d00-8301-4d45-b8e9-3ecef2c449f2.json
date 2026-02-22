@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_0f7b1d00-8301-4d45-b8e9-3ecef2c449f2",
+    "filing_date": "2026-02-22T10:32:11.161394",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Patrick Williams",
+    "customer_id": "CUST_0118",
+    "address": "PSC 1449, Box 1476, APO AA 87103",
+    "customer_since": "2021-09-05",
+    "risk_rating": "Medium"
+  },
+  "suspicious_activity": {
+    "classification": "Other",
+    "risk_level": "Medium",
+    "confidence_score": 0.75,
+    "narrative": "Customer Patrick Williams (CUST_0118), a midwife with medium risk rating, conducted $222,070.26 in 79 transactions from 2025-02-05 to 2025-08-04, including high-value transactions and unusual ATM behavior. Activity triggers suspicion of money laundering due to significant net flow and irregular ATM transactions. Financial institution flagged suspicious activity for potential SAR filing under the Bank Secrecy Act, considering the patterns of concern and medium risk level.",
+    "key_indicators": [
+      "High-value transactions",
+      "Unusual ATM activity"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Patrick Williams, a midwife with medium risk rating, holds 3 accounts with significant transaction activity and a total net flow of $222,070.26 over 79 transactions.\n\n            # Step 2 - Pattern Recognition:\n            # Patrick Williams shows patterns of regular income sources, high-value transactions, and unusual ATM transaction behavior.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: BSA, AML, CFT\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 65/100\n            # Likelihood of Illicit Intent: Medium\n\n            Step 5 - Classification Decision:\n            While there are patterns of concern, the lack of definitive red flags or clear illicit intent leads to classification as 'Other' for further investigation.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer Patrick Williams (CUST_0118), a midwife with medium risk rating, conducted $222,070.26 in 79 transactions from 2025-02-05 to 2025-08-04, including high-value transactions and unusual ATM behavior. Activity triggers suspicion of money laundering due to significant net flow and irregular ATM transactions. Financial institution flagged suspicious activity for potential SAR filing under the Bank Secrecy Act, considering the patterns of concern and medium risk level.",
+    "narrative_reasoning": "Identified customer, dates, amounts, suspicious behavior, and rationale for suspicion within the 120-word limit.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "49d502c1-d82d-470c-a0b2-003fb69c5fe2",
+    "processing_date": "2026-02-22T10:32:11.161394",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}

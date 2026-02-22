@@ -1,0 +1,45 @@
+{
+  "sar_metadata": {
+    "sar_id": "SAR_176c6e87-b0bd-4840-8ea8-e8d209164e4c",
+    "filing_date": "2026-02-22T10:32:25.404097",
+    "filing_type": "Suspicious Activity Report",
+    "ai_generated": true,
+    "review_status": "human_approved"
+  },
+  "subject_information": {
+    "customer_name": "Jacqueline Rodriguez",
+    "customer_id": "CUST_0111",
+    "address": "49331 Lewis Views Apt. 516, Lake Maryshire, DE 59549",
+    "customer_since": "2022-02-27",
+    "risk_rating": "High"
+  },
+  "suspicious_activity": {
+    "classification": "Money_Laundering",
+    "risk_level": "High",
+    "confidence_score": 0.85,
+    "narrative": "Customer CUST_0111, Jacqueline Rodriguez, conducted a high volume of transactions totaling $386,834.91 with no outflows, including a substantial $76,517.25 incoming wire transfer on 2025-07-29. Activity raises suspicion of potential money laundering through layering and structuring, as per Bank Secrecy Act (BSA) and Anti-Money Laundering (AML) Regulations. Financial institution flagged the suspicious activity for further review and SAR drafting.",
+    "key_indicators": [
+      "High transaction volume with no outflows",
+      "Large incoming wire transfer"
+    ],
+    "ai_reasoning": "\n            CHAIN-OF-THOUGHT ANALYSIS SUMMARY:\n\n            # Step 1 - Data Review:\n            # Jacqueline Rodriguez (CUST_0111) has 3 active accounts with a high volume of transactions, significant inflows, and a large incoming wire transfer. No outflows have been recorded.\n\n            # Step 2 - Pattern Recognition:\n            # The patterns identified include high transaction volume with no outflows and a large incoming wire transfer, suggesting potential layering and structuring.\n\n            # Step 3 - Regulatory Mapping:\n            # Applicable Regulations: Bank Secrecy Act (BSA), Anti-Money Laundering (AML) Regulations\n\n            # Step 4 - Risk Quantification:\n            # Risk Score: 75/100\n            # Likelihood of Illicit Intent: Medium\n\n            Step 5 - Classification Decision:\n            The patterns of high transaction volume, large incoming wire transfer, and no outflows align with typical money laundering schemes involving layering and structuring. The risk level is assessed as High.\n            "
+  },
+  "regulatory_compliance": {
+    "narrative": "Customer CUST_0111, Jacqueline Rodriguez, conducted a high volume of transactions totaling $386,834.91 with no outflows, including a substantial $76,517.25 incoming wire transfer on 2025-07-29. Activity raises suspicion of potential money laundering through layering and structuring, as per Bank Secrecy Act (BSA) and Anti-Money Laundering (AML) Regulations. Financial institution flagged the suspicious activity for further review and SAR drafting.",
+    "narrative_reasoning": "The narrative covers customer ID, dates, amounts, and describes the suspicious behavior related to money laundering while respecting the 120-word limit.",
+    "regulatory_citations": [
+      "31 CFR 1020.320 (BSA)",
+      "FinCEN SAR Instructions"
+    ],
+    "completeness_check": true
+  },
+  "audit_trail": {
+    "case_id": "ac75a875-e913-47eb-a9d8-4ba27506adbe",
+    "processing_date": "2026-02-22T10:32:25.404097",
+    "ai_agents_used": [
+      "RiskAnalyst",
+      "ComplianceOfficer"
+    ],
+    "human_reviewer": "compliance_officer"
+  }
+}
